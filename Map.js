@@ -57,12 +57,12 @@ CMap.prototype.init = function()
 	}
 	
 	var i = getRandomInt(0, 11);
-	var j = getRandomInt(0, 9);
+	var j = getRandomInt(0, 2);
 		
 	while (arrayMap[j][i] != null)
 	{
 		i = getRandomInt(0, 11);
-		j = getRandomInt(0, 9);
+		j = getRandomInt(0, 2);
 	}
 	
 	var spawnObj = new CSpawnObject(this.ctx, this.picturesResurse.get('img/Spawn.bmp'), i * BLOCK_WIDTH, j * BLOCK_HEIGHT);

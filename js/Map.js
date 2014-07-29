@@ -3,8 +3,6 @@ function getRandomInt(min, max)
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// карта пока без защищаемого блока!!!
-
 CMap = Base.extend({
 	constructor: function(example, ctx, picturesResurse)
 	{

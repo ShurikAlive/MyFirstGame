@@ -8,10 +8,11 @@ $(document).ready(function () {
         $ta
 		$
                 .keyboard(
-                        'w+a, a+w',
+                        'w a',
 						{
-								event  : 'keydown',
-                                preventDefault : true
+							strict : false,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
                                 player.x -= player.step;
@@ -30,10 +31,11 @@ $(document).ready(function () {
                 )
 				
 				.keyboard(
-                        'w+d, d+w',
+                        'w d',
 						{
-								event  : 'keydown',
-                                preventDefault : true
+							strict : false,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
                                 player.x += player.step;
@@ -52,10 +54,11 @@ $(document).ready(function () {
                 )
 				
 				.keyboard(
-                        's+d, d+s',
+                        's d',
 						{
-								event  : 'keydown',
-                                preventDefault : true
+							strict : false,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
                                 player.x += player.step;
@@ -74,10 +77,11 @@ $(document).ready(function () {
                 )
 				
 				.keyboard(
-                        's+a, a+s',
+                        's a',
 						{
-								event  : 'keydown',
-                                preventDefault : true
+							strict : false,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
                                 player.x -= player.step;
@@ -98,8 +102,9 @@ $(document).ready(function () {
 				.keyboard(
                         's',
                         {
-								event  : 'keydown',
-                                preventDefault : true
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
 								player.y += player.step;
@@ -118,8 +123,9 @@ $(document).ready(function () {
 				.keyboard(
                         'w',
                         {
-								event  : 'keydown',
-                                preventDefault : true
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
 								player.y -= player.step;
@@ -137,8 +143,10 @@ $(document).ready(function () {
 				
 				.keyboard(
                         'd',
-                        {		event  : 'keydown',
-                                preventDefault : true
+                        {		
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
 								player.x += player.step;
@@ -157,8 +165,9 @@ $(document).ready(function () {
 				.keyboard(
                         'a',
                         {
-								event  : 'keydown',
-                                preventDefault : true
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
                         },
                         function () {
 								player.x -= player.step;
@@ -175,10 +184,11 @@ $(document).ready(function () {
                 )
 				
 				.keyboard(
-                        'w+a, a+w, w+d, d+w, s+d, d+s, s+a, a+s, s, w, d, a',
+                        'w a, w d, s d, s a, s, w, d, a',
                         {
-								event  : 'keyup',
-                                preventDefault : true
+							strict : true,
+							event  : 'keyup',
+                            preventDefault : true
                         },
                         function () {
 								player.isStand = true;

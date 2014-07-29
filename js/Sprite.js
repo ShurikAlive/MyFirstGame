@@ -1,4 +1,5 @@
-function CSprite(pic, pos, size, speed, frames, dir, once, sizeOnMap) 
+CSprite = Base.extend({
+	constructor: function(pic, pos, size, speed, frames, dir, once, sizeOnMap) 
 {
     this.pos = pos;
     this.size = size;
@@ -11,20 +12,20 @@ function CSprite(pic, pos, size, speed, frames, dir, once, sizeOnMap)
     this.once = once;
 	this.objX = 0;
 	this.objY = 0;
-};
+},
 
-CSprite.prototype.update = function(dt) 
+update: function(dt) 
 {
     this._index += this.speed*dt;
-}
+},
 
-CSprite.prototype.updateCoordinateObject = function(x, y) 
+updateCoordinateObject: function(x, y) 
 {
     this.objX = x;
 	this.objY = y;
-}
+},
 
-CSprite.prototype.render = function(ctx) 
+render: function(ctx) 
 {
     var frame;
 
@@ -64,4 +65,5 @@ CSprite.prototype.render = function(ctx)
                   this.objX, this.objY,
                   this.sizeOnMap[0], this.sizeOnMap[1]);
 }
+});
 

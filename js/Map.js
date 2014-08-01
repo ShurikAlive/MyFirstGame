@@ -11,6 +11,7 @@ CMap = Base.extend({
 		this.objectSpawnArray = [];//Массив спавнов зомби
 		this.objectPlayerDefenceArray = [];//Объект, который должен защищать игрок
 		this.playersArray = [];//Массив с игроками
+		this.zombiesArray = [];//Массив зомби
 		this.height = 0;
 		this.width = 0;
 	
@@ -19,6 +20,11 @@ CMap = Base.extend({
 		this.picturesResurse = picturesResurse;
 	},
 
+	pushZombieInArrayZombies: function(zombie)
+	{
+		this.zombiesArray.push(zombie);
+	},
+	
 	init: function()
 	{
 		var arrayMap = [

@@ -67,22 +67,76 @@ function _playerHitSnag(map, player)
 		}
 	}
 	
+	for (var zombie in map.zombiesArray)
+	{
+		if (player != map.zombiesArray[zombie] && _collision(player, map.zombiesArray[zombie]))
+		{
+			return true;
+		}
+	}
+	
 	return false;
+}
+
+function _criateZombiePlayerHunter(ctx, map, resources)
+{
+	var numberEdge = getRandomInt(1, 4);
+	var x = 0;
+	var y = 0;
+	
+	if (numberEdge == 1)//верх
+	{
+		x = getRandomInt(0, map.width);
+		y = -70;
+	}
+	if (numberEdge == 2)//право
+	{
+		x = map.width + 5;
+		y = getRandomInt(0, map.height);
+	}
+	if (numberEdge == 3)//низ
+	{
+		x = getRandomInt(0, map.width);
+		y = map.height + 5;
+	}
+	if (numberEdge == 4)//лево
+	{
+		x = -70;
+		y = getRandomInt(0, map.height);
+	}
+	
+	var zombPlay = new CZombieHunterPlayer(ctx, resources.get('img/Player.gif'), x, y, map.playersArray);
+	
+	map.pushZombieInArrayZombies(zombPlay);
 }
 
 function _update(dt) 
 {
+
 	_outOfBounds(map, player);
 	zomb.takeStep(map);
-	zombPlay.takeStep(map);
+	
+	if (getRandomInt(1, 1000) >= 990)
+	{
+		_criateZombiePlayerHunter(ctx, map, resources);
+	}
+	
+	for (var zombie in map.zombiesArray)
+	{
+		map.zombiesArray[zombie].takeStep(map);
+	}
 }
 
-function _draw(map, player, zomb, zombPlay)
+function _draw(map, player, zomb)
 {
 	map.draw();
 	player.draw();
 	zomb.draw();
-	zombPlay.draw();
+	
+	for (var zombie in map.zombiesArray)
+	{
+		map.zombiesArray[zombie].draw();
+	}
 }
 
 function _start()
@@ -92,7 +146,7 @@ function _start()
 	dTime = dt;
 
     _update(dt);
-    _draw(map, player, zomb, zombPlay);
+    _draw(map, player, zomb);
 
     lastTime = now;
     requestAnimFrame(_start);
@@ -108,7 +162,6 @@ function _init()
 	map.setPlayer(player);
 	
 	zomb = new CZombieHunterObject(ctx, resources.get('img/Player.gif'), map.objectSpawnArray[0].x, map.objectSpawnArray[0].y,  map.objectPlayerDefenceArray);
-	zombPlay = new CZombieHunterPlayer(ctx, resources.get('img/Player.gif'), map.objectSpawnArray[0].x + 100, map.objectSpawnArray[0].y + 100,  map.playersArray);
 	
 	_start();
 }

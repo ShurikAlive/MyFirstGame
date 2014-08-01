@@ -10,6 +10,7 @@ CMap = Base.extend({
 		this.obstaclesMap = [];//Сама карта
 		this.objectSpawnArray = [];//Массив спавнов зомби
 		this.objectPlayerDefenceArray = [];//Объект, который должен защищать игрок
+		this.playersArray = [];//Массив с игроками
 		this.height = 0;
 		this.width = 0;
 	
@@ -99,5 +100,10 @@ CMap = Base.extend({
 				}
 			}
 		}
+	},
+	
+	setPlayer: function(player)
+	{
+		this.playersArray.push(player);
 	}
 });

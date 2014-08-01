@@ -4,6 +4,8 @@ BLOCK_HEIGHT = 32 * RATIO_IMAGE_SIZE;
 PLAYER_AND_ZOMBIE_WIDTH = 30 * RATIO_IMAGE_SIZE;
 PLAYER_AND_ZOMBIE_HEIGHT = 30 * RATIO_IMAGE_SIZE;
 PLAYER_STEP = 1 * RATIO_IMAGE_SIZE;
+ZOMBIE_STEP = 0.25 * RATIO_IMAGE_SIZE;
+ZOMBIE_DISTANCE_ATTACK = 1;
 
 var lastTime;
 
@@ -71,12 +73,16 @@ function _playerHitSnag(map, player)
 function _update(dt) 
 {
 	_outOfBounds(map, player);
+	zomb.takeStep(map);
+	zombPlay.takeStep(map);
 }
 
-function _draw(map, player)
+function _draw(map, player, zomb, zombPlay)
 {
 	map.draw();
 	player.draw();
+	zomb.draw();
+	zombPlay.draw();
 }
 
 function _start()
@@ -86,7 +92,7 @@ function _start()
 	dTime = dt;
 
     _update(dt);
-    _draw(map, player);
+    _draw(map, player, zomb, zombPlay);
 
     lastTime = now;
     requestAnimFrame(_start);
@@ -99,6 +105,10 @@ function _init()
 	map = new CMap(example, ctx, resources);
 	map.init();
 	player = _criatePlayer(example, ctx, resources.get('img/Player.gif'), map);
+	map.setPlayer(player);
+	
+	zomb = new CZombieHunterObject(ctx, resources.get('img/Player.gif'), map.objectSpawnArray[0].x, map.objectSpawnArray[0].y,  map.objectPlayerDefenceArray);
+	zombPlay = new CZombieHunterPlayer(ctx, resources.get('img/Player.gif'), map.objectSpawnArray[0].x + 100, map.objectSpawnArray[0].y + 100,  map.playersArray);
 	
 	_start();
 }

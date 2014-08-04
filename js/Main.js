@@ -3,7 +3,7 @@ BLOCK_WIDTH = 32 * RATIO_IMAGE_SIZE;
 BLOCK_HEIGHT = 32 * RATIO_IMAGE_SIZE;
 PLAYER_AND_ZOMBIE_WIDTH = 30 * RATIO_IMAGE_SIZE;
 PLAYER_AND_ZOMBIE_HEIGHT = 30 * RATIO_IMAGE_SIZE;
-PLAYER_STEP = 1 * RATIO_IMAGE_SIZE;
+PLAYER_STEP = 0.5 * RATIO_IMAGE_SIZE;
 ZOMBIE_STEP = 0.25 * RATIO_IMAGE_SIZE;
 ZOMBIE_DISTANCE_ATTACK = 1;
 
@@ -110,15 +110,51 @@ function _criateZombiePlayerHunter(ctx, map, resources)
 	map.pushZombieInArrayZombies(zombPlay);
 }
 
+function _playerOrZombieStandingOnSpawn(map, spawn)
+{
+	for (var zombie in map.zombiesArray)
+	{
+		if ( _collision(spawn, map.zombiesArray[zombie]))
+		{
+			return true;
+		}
+	}
+	
+	for (var player in map.playersArray)
+	{
+		if ( _collision(spawn, map.playersArray[player]))
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+function _criateZombieObjectHunter(ctx, map, resources)
+{
+	var spawn = map.objectSpawnArray[getRandomInt(0, (map.objectSpawnArray.length - 1))];//Получаем случайный объект (спавнер)
+
+	if (!_playerOrZombieStandingOnSpawn(map, spawn))
+	{
+		var zombObj = new CZombieHunterObject(ctx, resources.get('img/Player.gif'), spawn.x, spawn.y,  map.objectPlayerDefenceArray);
+		map.pushZombieInArrayZombies(zombObj);
+	}
+}
+
 function _update(dt) 
 {
 
 	_outOfBounds(map, player);
-	zomb.takeStep(map);
 	
 	if (getRandomInt(1, 1000) >= 990)
 	{
 		_criateZombiePlayerHunter(ctx, map, resources);
+	}
+	
+	if (getRandomInt(1, 1000) >= 900)
+	{
+		_criateZombieObjectHunter(ctx, map, resources);
 	}
 	
 	for (var zombie in map.zombiesArray)
@@ -127,11 +163,10 @@ function _update(dt)
 	}
 }
 
-function _draw(map, player, zomb)
+function _draw(map, player)
 {
 	map.draw();
 	player.draw();
-	zomb.draw();
 	
 	for (var zombie in map.zombiesArray)
 	{
@@ -146,7 +181,7 @@ function _start()
 	dTime = dt;
 
     _update(dt);
-    _draw(map, player, zomb);
+    _draw(map, player);
 
     lastTime = now;
     requestAnimFrame(_start);
@@ -160,9 +195,7 @@ function _init()
 	map.init();
 	player = _criatePlayer(example, ctx, resources.get('img/Player.gif'), map);
 	map.setPlayer(player);
-	
-	zomb = new CZombieHunterObject(ctx, resources.get('img/Player.gif'), map.objectSpawnArray[0].x, map.objectSpawnArray[0].y,  map.objectPlayerDefenceArray);
-	
+		
 	_start();
 }
 

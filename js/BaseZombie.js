@@ -18,14 +18,14 @@ CBaseZombie = Base.extend({
 		this.lastY = y;
 		this.width = PLAYER_AND_ZOMBIE_WIDTH;
 		this.height = PLAYER_AND_ZOMBIE_HEIGHT;
-		this.directionOfMovement = "up";// up, down, left, right, up-left, up-right, down-left, down-right
+		this.directionOfMovement = 'up';// up, down, left, right, up-left, up-right, down-left, down-right
 		this.step = ZOMBIE_STEP;
-		this.isStand = true;
+		this.isStand = false;
 		
 		this.isStuck = false;
 		this.perimeterMoveNearObstacles = PLAYER_AND_ZOMBIE_WIDTH + BLOCK_WIDTH + 3;
 		this.currentLongDetour = 0;
-		this.directionTraversal = 'up';//left, right, up, down
+		this.directionTraversal = 'up';
 		
 		this.distanceAttacks = ZOMBIE_DISTANCE_ATTACK;
 		

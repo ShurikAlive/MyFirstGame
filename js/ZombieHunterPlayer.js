@@ -7,11 +7,45 @@ CZombieHunterPlayer = CBaseZombie.extend({
 		//Дошли до дистанции атаки
 		if (_collision(targetObject, zoneZombieAttack))
 		{
+			this.isStand = true;
 			return;
+		}
+		else
+		{
+			this.isStand = false;
 		}
 		//Дошли до дистанции атаки
 		
+		this.directionOfMovement = '';
+		
 		//Стримимся к цели!
+		if (targetObject.y > this.y && !this.isStuck)
+		{
+			this.y += this.step;
+			
+			if (_playerHitSnag(map, this))
+			{
+				this.y -= this.step;
+			}
+			else
+			{
+				this.directionOfMovement += 'down';
+			}
+		}
+		else if (targetObject.y < this.y && !this.isStuck)
+		{
+			this.y -= this.step;
+			
+			if (_playerHitSnag(map, this))
+			{
+				this.y += this.step;
+			}
+			else
+			{
+				this.directionOfMovement += 'up';
+			}
+		}
+		
 		if (targetObject.x > this.x && !this.isStuck)
 		{
 			this.x += this.step;
@@ -19,6 +53,10 @@ CZombieHunterPlayer = CBaseZombie.extend({
 			if (_playerHitSnag(map, this))
 			{
 				this.x -= this.step;
+			}
+			else
+			{
+				this.directionOfMovement += 'right';
 			}
 		}
 		else if (targetObject.x < this.x && !this.isStuck)
@@ -29,24 +67,9 @@ CZombieHunterPlayer = CBaseZombie.extend({
 			{
 				this.x += this.step;
 			}
-		}
-		
-		if (targetObject.y > this.y && !this.isStuck)
-		{
-			this.y += this.step;
-			
-			if (_playerHitSnag(map, this))
+			else
 			{
-				this.y -= this.step;
-			}
-		}
-		else if (targetObject.y < this.y && !this.isStuck)
-		{
-			this.y -= this.step;
-			
-			if (_playerHitSnag(map, this))
-			{
-				this.y += this.step;
+				this.directionOfMovement += 'left';
 			}
 		}
 		//Стримимся к цели!
@@ -83,24 +106,7 @@ CZombieHunterPlayer = CBaseZombie.extend({
 		
 		if (this.isStuck)
 		{
-			if (this.directionTraversal == 'right')
-			{
-				this.x += this.step;
-				
-				if (_playerHitSnag(map, this))
-				{
-					this.x -= this.step;
-				}
-			}
-			else if (this.directionTraversal == 'left')
-			{
-				this.x -= this.step;
-				
-				if (_playerHitSnag(map, this))
-				{
-					this.x += this.step;
-				}
-			}
+			this.directionOfMovement = '';
 			
 			if (this.directionTraversal == 'up')
 			{
@@ -109,6 +115,10 @@ CZombieHunterPlayer = CBaseZombie.extend({
 				if (_playerHitSnag(map, this))
 				{
 					this.y += this.step;
+				}
+				else
+				{
+					this.directionOfMovement += 'up';
 				}
 			}
 			else if (this.directionTraversal == 'down')
@@ -119,8 +129,39 @@ CZombieHunterPlayer = CBaseZombie.extend({
 				{
 					this.y -= this.step;
 				}
+				else
+				{
+					this.directionOfMovement += 'down';
+				}
 			}
 			
+			if (this.directionTraversal == 'right')
+			{
+				this.x += this.step;
+				
+				if (_playerHitSnag(map, this))
+				{
+					this.x -= this.step;
+				}
+				else
+				{
+					this.directionOfMovement += 'right';
+				}
+			}
+			else if (this.directionTraversal == 'left')
+			{
+				this.x -= this.step;
+				
+				if (_playerHitSnag(map, this))
+				{
+					this.x += this.step;
+				}
+				else
+				{
+					this.directionOfMovement += 'left';
+				}
+			}
+						
 			this.currentLongDetour += this.step;
 		}
 		
@@ -130,6 +171,12 @@ CZombieHunterPlayer = CBaseZombie.extend({
 			this.isStuck = false;
 		}
 		//Если застряли!
+		
+		if (this.directionOfMovement == '')
+		{
+			this.directionOfMovement = 'down';
+			this.isStand = true;
+		}
 		
 		this.lastX = this.x;
 		this.lastY = this.y;

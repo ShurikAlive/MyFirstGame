@@ -4,6 +4,8 @@ CZombieHunterPlayer = CBaseZombie.extend({
 		var targetObject = map.playersArray[this.indexGoalOfDestroying];
 		var zoneZombieAttack = new CZoneZombieAttack(this.x, this.y, this.height, this.width, this.distanceAttacks);
 		
+		var previousDirection = this.directionOfMovement;
+		
 		//Дошли до дистанции атаки
 		if (_collision(targetObject, zoneZombieAttack))
 		{
@@ -174,7 +176,7 @@ CZombieHunterPlayer = CBaseZombie.extend({
 		
 		if (this.directionOfMovement == '')
 		{
-			this.directionOfMovement = 'down';
+			this.directionOfMovement = previousDirection;
 			this.isStand = true;
 		}
 		

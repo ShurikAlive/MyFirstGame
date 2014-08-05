@@ -75,6 +75,14 @@ function _playerHitSnag(map, player)
 		}
 	}
 	
+	for (var playerFromTeam in map.playersArray)
+	{
+		if (player != map.playersArray[playerFromTeam] && _collision(player, map.playersArray[playerFromTeam]))
+		{
+			return true;
+		}
+	}
+	
 	return false;
 }
 
@@ -105,7 +113,7 @@ function _criateZombiePlayerHunter(ctx, map, resources)
 		y = getRandomInt(0, map.height);
 	}
 	
-	var zombPlay = new CZombieHunterPlayer(ctx, resources.get('img/Player.gif'), x, y, map.playersArray);
+	var zombPlay = new CZombieHunterPlayer(ctx, resources.get('img/Player.gif'), dTime, x, y, map.playersArray);
 	
 	map.pushZombieInArrayZombies(zombPlay);
 }
@@ -137,7 +145,7 @@ function _criateZombieObjectHunter(ctx, map, resources)
 
 	if (!_playerOrZombieStandingOnSpawn(map, spawn))
 	{
-		var zombObj = new CZombieHunterObject(ctx, resources.get('img/Player.gif'), spawn.x, spawn.y,  map.objectPlayerDefenceArray);
+		var zombObj = new CZombieHunterObject(ctx, resources.get('img/Player.gif'), dTime, spawn.x, spawn.y,  map.objectPlayerDefenceArray);
 		map.pushZombieInArrayZombies(zombObj);
 	}
 }

@@ -86,6 +86,14 @@ function _playerHitSnag(map, player)
 		}
 	}
 	
+	for (var object in map.objectPlayerDefenceArray)
+	{
+		if (_collision(player, map.objectPlayerDefenceArray[object]))
+		{
+			return true;
+		}
+	}
+	
 	for (var playerFromTeam in map.playersArray)
 	{
 		if (player != map.playersArray[playerFromTeam] && _collision(player, map.playersArray[playerFromTeam]))

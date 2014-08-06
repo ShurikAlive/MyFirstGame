@@ -1,8 +1,10 @@
 RATIO_IMAGE_SIZE = 2;
 BLOCK_WIDTH = 32 * RATIO_IMAGE_SIZE;
 BLOCK_HEIGHT = 32 * RATIO_IMAGE_SIZE;
-PLAYER_AND_ZOMBIE_WIDTH = 25 * RATIO_IMAGE_SIZE;
-PLAYER_AND_ZOMBIE_HEIGHT = 30 * RATIO_IMAGE_SIZE;
+PLAYER_WIDTH = 25 * RATIO_IMAGE_SIZE;
+PLAYER_HEIGHT = 30 * RATIO_IMAGE_SIZE;
+ZOMBIE_WIDTH = 15 * RATIO_IMAGE_SIZE;
+ZOMBIE_HEIGHT = 25 * RATIO_IMAGE_SIZE;
 PLAYER_STEP = 0.5 * RATIO_IMAGE_SIZE;
 ZOMBIE_STEP = 0.25 * RATIO_IMAGE_SIZE;
 ZOMBIE_DISTANCE_ATTACK = 1;
@@ -27,6 +29,11 @@ function _collision(objA, objB) {
     else {
         return false;
     }
+}
+
+function _getZombieSpirte(resources)
+{
+	return resources.get('img/ZOMBIE' + getRandomInt(1, 4) + '.gif');
 }
 
 function _createPlayer(example, ctx, pic, map)
@@ -132,7 +139,7 @@ function _criateZombiePlayerHunter(ctx, map, resources)
 		y = getRandomInt(0, map.height);
 	}
 	
-	var zombPlay = new CZombieHunterPlayer(ctx, resources.get('img/Player.gif'), dTime, x, y, map.playersArray);
+	var zombPlay = new CZombieHunterPlayer(ctx, _getZombieSpirte(resources), dTime, x, y, map.playersArray);
 	
 	map.pushZombieInArrayZombies(zombPlay);
 }
@@ -164,7 +171,7 @@ function _criateZombieObjectHunter(ctx, map, resources)
 
 	if (!_playerOrZombieStandingOnSpawn(map, spawn))
 	{
-		var zombObj = new CZombieHunterObject(ctx, resources.get('img/Player.gif'), dTime, spawn.x, spawn.y,  map.objectPlayerDefenceArray);
+		var zombObj = new CZombieHunterObject(ctx, _getZombieSpirte(resources), dTime, spawn.x, spawn.y,  map.objectPlayerDefenceArray);
 		map.pushZombieInArrayZombies(zombObj);
 	}
 }
@@ -242,6 +249,10 @@ function main(map, player)
 	'img/Box.bmp',
 	'img/Stone.bmp',
 	'img/DefObj.bmp',
+	'img/ZOMBIE1.gif',
+	'img/ZOMBIE2.gif',
+	'img/ZOMBIE3.gif',
+	'img/ZOMBIE4.gif',
 	'img/Player.gif'
 	]);
 	

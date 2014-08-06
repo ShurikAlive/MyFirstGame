@@ -16,14 +16,14 @@ CBaseZombie = Base.extend({
 		this.y = y;
 		this.lastX = x;
 		this.lastY = y;
-		this.width = PLAYER_AND_ZOMBIE_WIDTH;
-		this.height = PLAYER_AND_ZOMBIE_HEIGHT;
+		this.width = ZOMBIE_WIDTH;
+		this.height = ZOMBIE_HEIGHT;
 		this.directionOfMovement = 'up';// up, down, left, right, upleft, upright, downleft, downright
 		this.step = ZOMBIE_STEP;
 		this.isStand = false;
 		
 		this.isStuck = false;
-		this.perimeterMoveNearObstacles = PLAYER_AND_ZOMBIE_WIDTH + BLOCK_WIDTH + 3;
+		this.perimeterMoveNearObstacles = ZOMBIE_WIDTH + BLOCK_WIDTH + 3;
 		this.currentLongDetour = 0;
 		this.directionTraversal = 'up';
 		
@@ -32,23 +32,23 @@ CBaseZombie = Base.extend({
 		this.indexGoalOfDestroying = getRandomInt(0, (arrayObjects.length - 1));
 		
 		this.dTime = dTime;
-		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 4, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height]);
+		this.spriteRun = new CSprite(pic, [35, 0], [35, 50], 4, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height]);
 	},
 
 	draw: function()
 	{
 		var spritePosInHorizontal = 0;
-		var heightOneImageOnSprite = 60;
+		var heightOneImageOnSprite = 50;
 		var indent = 0;
 		
 		switch (this.directionOfMovement) {
-			case "up":
+			case "down":
 			{
 				spritePosInHorizontal = 0;
 				break;
 			}
 			
-			case "down":
+			case "downleft":
 			{
 				spritePosInHorizontal = 1;
 				break;
@@ -60,32 +60,32 @@ CBaseZombie = Base.extend({
 				break;
 			}
 			
-			case "right":
+			case "upleft":
 			{
 				spritePosInHorizontal = 3;
 				break;
 			}
 		
 			
-			case "upleft":
+			case "downright":
 			{
 				spritePosInHorizontal = 4;
 				break;
 			}
 			
-			case "upright":
+			case "right":
 			{
 				spritePosInHorizontal = 5;
 				break;
 			}
 			
-			case "downleft":
+			case "upright":
 			{
 				spritePosInHorizontal = 6;
 				break;
 			}
 			
-			case "downright":
+			case "up":
 			{
 				spritePosInHorizontal = 7;
 				break;
@@ -101,7 +101,7 @@ CBaseZombie = Base.extend({
 		}
 		else
 		{
-			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 35, 50, this.x, this.y, this.width, this.height);
 		}
 	}
 });

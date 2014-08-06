@@ -1,13 +1,24 @@
 RATIO_IMAGE_SIZE = 2;
 BLOCK_WIDTH = 32 * RATIO_IMAGE_SIZE;
 BLOCK_HEIGHT = 32 * RATIO_IMAGE_SIZE;
-PLAYER_AND_ZOMBIE_WIDTH = 30 * RATIO_IMAGE_SIZE;
+PLAYER_AND_ZOMBIE_WIDTH = 25 * RATIO_IMAGE_SIZE;
 PLAYER_AND_ZOMBIE_HEIGHT = 30 * RATIO_IMAGE_SIZE;
 PLAYER_STEP = 0.5 * RATIO_IMAGE_SIZE;
 ZOMBIE_STEP = 0.25 * RATIO_IMAGE_SIZE;
 ZOMBIE_DISTANCE_ATTACK = 1;
 
 var lastTime;
+
+var _requestAnimFrame = (function(){
+    return window.requestAnimationFrame       ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame    ||
+        window.oRequestAnimationFrame      ||
+        window.msRequestAnimationFrame     ||
+        function(callback){
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();
 
 function _collision(objA, objB) {
     if (objA.x + objA.width > objB.x && objA.x < objB.x + objB.width && objA.y + objA.height > objB.y && objA.y < objB.y + objB.height) {
@@ -18,7 +29,7 @@ function _collision(objA, objB) {
     }
 }
 
-function _criatePlayer(example, ctx, pic, map)
+function _createPlayer(example, ctx, pic, map)
 {
 	var i = getRandomInt(0, 11);
 	var j = getRandomInt(0, 9);
@@ -192,7 +203,7 @@ function _start()
     _draw(map, player);
 
     lastTime = now;
-    requestAnimFrame(_start);
+    _requestAnimFrame(_start);
 	
 }
 
@@ -201,7 +212,7 @@ function _init()
 	lastTime = Date.now();
 	map = new CMap(example, ctx, resources);
 	map.init();
-	player = _criatePlayer(example, ctx, resources.get('img/Player.gif'), map);
+	player = _createPlayer(example, ctx, resources.get('img/Player.gif'), map);
 	map.setPlayer(player);
 		
 	_start();

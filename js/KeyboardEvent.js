@@ -15,6 +15,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
                                 player.x -= player.step;
 								player.y -= player.step;
 								player.directionOfMovement = "up-left";
@@ -27,6 +29,7 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
                         }
                 )
 				
@@ -38,6 +41,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
                                 player.x += player.step;
 								player.y -= player.step;
 								player.directionOfMovement = "up-right";
@@ -50,6 +55,7 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
                         }
                 )
 				
@@ -61,6 +67,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
                                 player.x += player.step;
 								player.y += player.step;
 								player.directionOfMovement = "down-right";
@@ -73,6 +81,7 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
                         }
                 )
 				
@@ -84,6 +93,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
                                 player.x -= player.step;
 								player.y += player.step;
 								player.directionOfMovement = "down-left";
@@ -96,6 +107,7 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
                         }
                 )
 		//$	
@@ -107,6 +119,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
 								player.y += player.step;
 								player.directionOfMovement = "down";
 								player.isStand = false;
@@ -117,6 +131,7 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
                         }
                 )
 				
@@ -128,6 +143,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
 								player.y -= player.step;
 								player.directionOfMovement = "up";
 								player.isStand = false;
@@ -138,6 +155,7 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
                         }
                 )
 				
@@ -149,6 +167,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
 								player.x += player.step;
 								player.directionOfMovement = "right";
 								player.isStand = false;
@@ -159,6 +179,7 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
                         }
                 )
 				
@@ -170,6 +191,8 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.heShoots)
+							{
 								player.x -= player.step;
 								player.directionOfMovement = "left";
 								player.isStand = false;
@@ -180,6 +203,41 @@ $(document).ready(function () {
 								}
 								
 								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'f',
+                        {
+							event  : 'keydown'
+                        },
+                        function () {
+							if (!player.clipIsEmpty())
+							{
+								player.heShoots = true;
+								player.isStand = false;
+							
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+							
+								player.spriteShoot.update(dTime);
+							}
+							else
+							{
+								player.isStand = true;
+								player.heShoots = false;
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'f',
+                        {
+							event  : 'keyup'
+                        },
+                        function () {
+							player.heShoots = false;
+							player.isStand = true;
                         }
                 )
 				

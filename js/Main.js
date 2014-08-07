@@ -8,6 +8,7 @@ ZOMBIE_HEIGHT = 25 * RATIO_IMAGE_SIZE;
 PLAYER_STEP = 0.5 * RATIO_IMAGE_SIZE;
 ZOMBIE_STEP = 0.25 * RATIO_IMAGE_SIZE;
 ZOMBIE_DISTANCE_ATTACK = 1;
+SPEAD_STANDART_BULLET = 10;
 
 var lastTime;
 
@@ -195,6 +196,8 @@ function _update(dt)
 	{
 		map.zombiesArray[zombie].takeStep(map);
 	}
+	
+	player.update(map);
 }
 
 function _draw(map, player)
@@ -206,6 +209,8 @@ function _draw(map, player)
 	{
 		map.zombiesArray[zombie].draw();
 	}
+	
+	player.drawWeapons();
 }
 
 function _start()
@@ -253,7 +258,8 @@ function main(map, player)
 	'img/ZOMBIE2.gif',
 	'img/ZOMBIE3.gif',
 	'img/ZOMBIE4.gif',
-	'img/Player.gif'
+	'img/Player.gif',
+	'img/StandartBullet.png'
 	]);
 	
 	resources.onReady(_init);

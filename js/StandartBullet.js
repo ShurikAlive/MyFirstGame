@@ -125,9 +125,9 @@ CStandartBullet = CBaseBullet.extend({
 		
 		for (var zombie in map.zombiesArray)
 		{
-			if (_collision(map.zombiesArray[zombie], this))
+			if (!map.zombiesArray[zombie].isDestroyed && _collision(map.zombiesArray[zombie], this))
 			{
-				//вызываем функцию у зомби для нанесения урона
+				map.zombiesArray[zombie].setDemage(this.demage);
 				this.bulletFaced = true;
 				return;
 			}

@@ -24,6 +24,11 @@ CMap = Base.extend({
 	{
 		this.zombiesArray.push(zombie);
 	},
+		
+	sortAnArrayOfZombies: function()
+	{
+		this.zombiesArray.sort(function(a,b){return !a.isDestroyed});
+	},
 	
 	init: function()
 	{

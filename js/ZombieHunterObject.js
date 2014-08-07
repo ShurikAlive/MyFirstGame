@@ -1,6 +1,11 @@
 CZombieHunterObject = CBaseZombie.extend({
 	takeStep: function(map)
 	{
+		if (this.isDestroyed)
+		{
+			return;
+		}
+	
 		var targetObject = map.objectPlayerDefenceArray[this.indexGoalOfDestroying];
 		var zoneZombieAttack = new CZoneZombieAttack(this.x, this.y, this.height, this.width, this.distanceAttacks);
 		

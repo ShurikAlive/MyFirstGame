@@ -9,6 +9,7 @@ PLAYER_STEP = 0.5 * RATIO_IMAGE_SIZE;
 ZOMBIE_STEP = 0.25 * RATIO_IMAGE_SIZE;
 ZOMBIE_DISTANCE_ATTACK = 1;
 SPEAD_STANDART_BULLET = 10;
+HEALTH_ZOMBIE = 100;
 
 var lastTime;
 
@@ -88,7 +89,7 @@ function _playerHitSnag(map, player)
 	
 	for (var zombie in map.zombiesArray)
 	{
-		if (player != map.zombiesArray[zombie] && _collision(player, map.zombiesArray[zombie]))
+		if (!map.zombiesArray[zombie].isDestroyed && player != map.zombiesArray[zombie] && _collision(player, map.zombiesArray[zombie]))
 		{
 			return true;
 		}
@@ -197,18 +198,20 @@ function _update(dt)
 		map.zombiesArray[zombie].takeStep(map);
 	}
 	
+	map.sortAnArrayOfZombies();
 	player.update(map);
 }
 
 function _draw(map, player)
 {
 	map.draw();
-	player.draw();
 	
 	for (var zombie in map.zombiesArray)
 	{
 		map.zombiesArray[zombie].draw();
 	}
+	
+	player.draw();
 	
 	player.drawWeapons();
 }

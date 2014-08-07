@@ -31,10 +31,23 @@ CBaseZombie = Base.extend({
 		
 		this.indexGoalOfDestroying = getRandomInt(0, (arrayObjects.length - 1));
 		
+		this.health = HEALTH_ZOMBIE;
+		this.isDestroyed = false;
+		
 		this.dTime = dTime;
 		this.spriteRun = new CSprite(pic, [35, 0], [35, 50], 4, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height]);
 	},
 
+	setDemage: function(demage)
+	{
+		this.health -= demage;
+		
+		if (this.health <= 0)
+		{
+			this.isDestroyed = true;
+		}
+	},
+	
 	draw: function()
 	{
 		var spritePosInHorizontal = 0;
@@ -92,16 +105,20 @@ CBaseZombie = Base.extend({
 			}
 		}
 		
-		if (!this.isStand)
+		if (!this.isStand && !this.isDestroyed)
 		{
 			this.spriteRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
 			this.spriteRun.updateCoordinateObject(this.x, this.y);
 			this.spriteRun.render(this.ctx);
 			this.spriteRun.update(dTime);
 		}
-		else
+		else if (!this.isDestroyed && this.isStand)
 		{
 			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 35, 50, this.x, this.y, this.width, this.height);
+		}
+		else if (this.isDestroyed)
+		{
+			this.ctx.drawImage(this.pic, 175, 400, 35, 50, this.x, this.y, this.width, this.height);
 		}
 	}
 });

@@ -1,7 +1,7 @@
 CZombieHunterPlayer = CBaseZombie.extend({
 	takeStep: function(map)
 	{
-		if (this.isDestroyed)
+		if (this.isDestroyed || this.isAttacking)
 		{
 			return;
 		}

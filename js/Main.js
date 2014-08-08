@@ -185,7 +185,7 @@ function _update(dt)
 	
 	if (getRandomInt(1, 1000) >= 990)
 	{
-		//_criateZombiePlayerHunter(ctx, map, resources);
+		_criateZombiePlayerHunter(ctx, map, resources);
 	}
 	
 	if (getRandomInt(1, 1000) >= 900)

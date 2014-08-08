@@ -187,5 +187,22 @@ CZombieHunterPlayer = CBaseZombie.extend({
 		
 		this.lastX = this.x;
 		this.lastY = this.y;
+	},
+	
+	attack: function(map)
+	{
+		var targetObject = map.playersArray[this.indexGoalOfDestroying];
+		var zoneZombieAttack = new CZoneZombieAttack(this.x, this.y, this.height, this.width, this.distanceAttacks);
+				
+		if (!this.isDestroyed && this.isStand && _collision(targetObject, zoneZombieAttack) && (Date.now() - this.lastHit >= this.rate))
+		{		
+			this.isAttacking = true;
+			targetObject.setDemage(this.demage);
+			this.lastHit = Date.now();
+		}
+		else if ((Date.now() - this.lastHit >= this.rate))
+		{
+			this.isAttacking = false;
+		}
 	}
 });

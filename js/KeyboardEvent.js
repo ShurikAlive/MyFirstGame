@@ -15,7 +15,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x -= player.step;
 								player.y -= player.step;
@@ -41,7 +41,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x += player.step;
 								player.y -= player.step;
@@ -67,7 +67,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x += player.step;
 								player.y += player.step;
@@ -93,7 +93,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x -= player.step;
 								player.y += player.step;
@@ -119,7 +119,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.y += player.step;
 								player.directionOfMovement = "down";
@@ -143,7 +143,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.y -= player.step;
 								player.directionOfMovement = "up";
@@ -167,7 +167,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.x += player.step;
 								player.directionOfMovement = "right";
@@ -191,7 +191,7 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
-							if (!player.heShoots)
+							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.x -= player.step;
 								player.directionOfMovement = "left";
@@ -213,7 +213,7 @@ $(document).ready(function () {
 							event  : 'keydown'
                         },
                         function () {
-							if (!player.clipIsEmpty())
+							if (!player.isDestroyed && !player.clipIsEmpty())
 							{
 								player.heShoots = true;
 								player.isStand = false;
@@ -236,8 +236,11 @@ $(document).ready(function () {
 							event  : 'keyup'
                         },
                         function () {
-							player.heShoots = false;
-							player.isStand = true;
+							if (!player.isDestroyed)
+							{
+								player.heShoots = false;
+								player.isStand = true;
+							}
                         }
                 )
 				
@@ -249,7 +252,10 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (!player.isDestroyed)
+							{
 								player.isStand = true;
+							}
                         }
                 )
 });

@@ -88,7 +88,7 @@ CMap = Base.extend({
 			j = getRandomInt(7, 9);
 		}
 	
-		var defencObject = new CDefencObject(this.ctx, this.picturesResurse.get('img/DefObj.bmp'), i * BLOCK_WIDTH, j * BLOCK_HEIGHT);
+		var defencObject = new CDefencObject(this.ctx, this.picturesResurse.get('img/DefObj.bmp'), this.picturesResurse.get('img/lifebottle.gif'),i * BLOCK_WIDTH, j * BLOCK_HEIGHT);
 		arrayMap[j][i] = defencObject;
 		this.objectPlayerDefenceArray.push(defencObject);
 		

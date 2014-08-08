@@ -185,7 +185,7 @@ function _update(dt)
 	
 	if (getRandomInt(1, 1000) >= 990)
 	{
-		_criateZombiePlayerHunter(ctx, map, resources);
+		//_criateZombiePlayerHunter(ctx, map, resources);
 	}
 	
 	if (getRandomInt(1, 1000) >= 900)
@@ -196,6 +196,7 @@ function _update(dt)
 	for (var zombie in map.zombiesArray)
 	{
 		map.zombiesArray[zombie].takeStep(map);
+		map.zombiesArray[zombie].attack(map);
 	}
 	
 	map.sortAnArrayOfZombies();
@@ -262,6 +263,7 @@ function main(map, player)
 	'img/ZOMBIE3.gif',
 	'img/ZOMBIE4.gif',
 	'img/Player.gif',
+	'img/lifebottle.gif',
 	'img/StandartBullet.png'
 	]);
 	

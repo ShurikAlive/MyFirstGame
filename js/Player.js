@@ -13,11 +13,25 @@ CPlayer = Base.extend({
 		this.arsenal = [new CStandartWeapon()];//Массив с оружием игрока
 		this.currentWeapon = 0;//индекс оружия из массива, которое в данный момент спользует игрок
 		this.heShoots = false;
+		
+		this.health = 100;
+		this.isDestroyed = false;
 				
 		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 4, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height]);
 		this.spriteShoot = new CSprite(pic, [0, 0], [60, 60], 1, [1], 'horizontal', false, [this.width, this.height]);
 	},
 
+	setDemage: function(demage)
+	{
+		this.health -= demage;
+		
+		if (this.health <= 0)
+		{
+			this.health = 0;
+			this.isDestroyed = true;
+		}
+	},
+	
 	pressTrigger: function(pic)
 	{
 		this.arsenal[this.currentWeapon].makeAShot(this, pic);
@@ -101,21 +115,25 @@ CPlayer = Base.extend({
 			}
 		}
 		
-		if (!this.isStand && !this.heShoots)
+		if (!this.isDestroyed && !this.isStand && !this.heShoots)
 		{
 			this.spriteRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
 			this.spriteRun.updateCoordinateObject(this.x, this.y);
 			this.spriteRun.render(this.ctx);
 		}
-		else if (this.isStand)
+		else if (!this.isDestroyed && this.isStand)
 		{
 			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y, this.width, this.height);
 		}
-		else if (this.heShoots)
+		else if (!this.isDestroyed && this.heShoots)
 		{
 			this.spriteShoot.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
 			this.spriteShoot.updateCoordinateObject(this.x, this.y);
 			this.spriteShoot.render(this.ctx);
+		}
+		else if (this.isDestroyed)
+		{
+			this.ctx.drawImage(this.pic, 240, 480, 60, 60, this.x, this.y, this.width, this.height);
 		}
 	}
 });

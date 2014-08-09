@@ -16,6 +16,10 @@ CPlayer = Base.extend({
 		
 		this.health = 100;
 		this.isDestroyed = false;
+		
+		this.isDamaged = false;
+		this.lastDamage = Date.now();
+		this.delayPictures = 500;
 				
 		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 4, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height]);
 		this.spriteShoot = new CSprite(pic, [0, 0], [60, 60], 1, [1], 'horizontal', false, [this.width, this.height]);
@@ -24,6 +28,8 @@ CPlayer = Base.extend({
 	setDemage: function(demage)
 	{
 		this.health -= demage;
+		this.isDamaged = true;
+		this.lastDamage = Date.now();
 		
 		if (this.health <= 0)
 		{
@@ -115,7 +121,11 @@ CPlayer = Base.extend({
 			}
 		}
 		
-		if (!this.isDestroyed && !this.isStand && !this.heShoots)
+		if (!this.heShoots && this.isDamaged && !this.isDestroyed)
+		{
+			this.ctx.drawImage(this.pic, 120, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y, this.width, this.height);
+		}
+		else if (!this.isDestroyed && !this.isStand && !this.heShoots)
 		{
 			this.spriteRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
 			this.spriteRun.updateCoordinateObject(this.x, this.y);
@@ -134,6 +144,11 @@ CPlayer = Base.extend({
 		else if (this.isDestroyed)
 		{
 			this.ctx.drawImage(this.pic, 240, 480, 60, 60, this.x, this.y, this.width, this.height);
+		}
+		
+		if (Date.now() - this.lastDamage >= this.delayPictures)
+		{
+			this.isDamaged = false;
 		}
 	}
 });

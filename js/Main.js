@@ -150,7 +150,7 @@ function _playerOrZombieStandingOnSpawn(map, spawn)
 {
 	for (var zombie in map.zombiesArray)
 	{
-		if ( _collision(spawn, map.zombiesArray[zombie]))
+		if (!map.zombiesArray[zombie].isDestroyed &&  _collision(spawn, map.zombiesArray[zombie]))
 		{
 			return true;
 		}
@@ -158,7 +158,7 @@ function _playerOrZombieStandingOnSpawn(map, spawn)
 	
 	for (var player in map.playersArray)
 	{
-		if ( _collision(spawn, map.playersArray[player]))
+		if (!map.playersArray[player].isDestroyed && _collision(spawn, map.playersArray[player]))
 		{
 			return true;
 		}
@@ -203,6 +203,27 @@ function _update(dt)
 	player.update(map);
 }
 
+function _drawInfo(example, ctx, map, player)
+{
+	ctx.fillStyle = "black";
+	ctx.fillRect(map.width, 0, example.width - map.width, map.height);
+	ctx.strokeRect(map.width, 0, example.width - map.width, map.height);
+	
+	ctx.font = 'bold ' + 7 * RATIO_IMAGE_SIZE +'px courier';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#FFFFFF';
+	
+	ctx.fillText('Жизни игрока:', map.width + 10, 15 * RATIO_IMAGE_SIZE);
+    ctx.fillText(player.health, map.width + 10, 30 * RATIO_IMAGE_SIZE);
+
+	ctx.fillText('Жизни защищаемого объекта:', map.width + 10, 55  * RATIO_IMAGE_SIZE);
+	ctx.fillText(map.objectPlayerDefenceArray[0].health, map.width + 10, 70 * RATIO_IMAGE_SIZE);
+
+	ctx.fillText('Количество патронов:', map.width + 10, 95 * RATIO_IMAGE_SIZE);
+	ctx.fillText(player.arsenal[player.currentWeapon].numberOfCartridges, map.width + 10, 110 * RATIO_IMAGE_SIZE);
+}
+
 function _draw(map, player)
 {
 	map.draw();
@@ -215,6 +236,8 @@ function _draw(map, player)
 	player.draw();
 	
 	player.drawWeapons();
+	
+	_drawInfo(example, ctx, map, player);
 }
 
 function _start()

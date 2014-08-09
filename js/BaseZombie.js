@@ -34,6 +34,10 @@ CBaseZombie = Base.extend({
 		this.health = HEALTH_ZOMBIE;
 		this.isDestroyed = false;
 		
+		this.isDamaged = false;
+		this.lastDamage = Date.now();
+		this.delayPictures = 500;
+		
 		this.isAttacking = false;
 		this.rate = 1000;
 		this.demage = 5;
@@ -47,6 +51,8 @@ CBaseZombie = Base.extend({
 	setDemage: function(demage)
 	{
 		this.health -= demage;
+		this.isDamaged = true;
+		this.lastDamage = Date.now();
 		
 		if (this.health <= 0)
 		{
@@ -111,7 +117,11 @@ CBaseZombie = Base.extend({
 			}
 		}
 		
-		if (!this.isStand && !this.isDestroyed && !this.isAttacking)
+		if (this.isDamaged && !this.isDestroyed)
+		{
+			this.ctx.drawImage(this.pic, 0, 400, 35, 50, this.x, this.y, this.width, this.height);
+		}
+		else if (!this.isStand && !this.isDestroyed && !this.isAttacking)
 		{
 			this.spriteRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
 			this.spriteRun.updateCoordinateObject(this.x, this.y);
@@ -132,6 +142,11 @@ CBaseZombie = Base.extend({
 		else if (this.isDestroyed)
 		{
 			this.ctx.drawImage(this.pic, 175, 400, 35, 50, this.x, this.y, this.width, this.height);
+		}
+		
+		if (Date.now() - this.lastDamage >= this.delayPictures)
+		{
+			this.isDamaged = false;
 		}
 	}
 });

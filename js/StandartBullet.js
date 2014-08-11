@@ -137,7 +137,7 @@ CStandartBullet = CBaseBullet.extend({
 		{
 			if (_collision(map.objectPlayerDefenceArray[object], this))
 			{
-				//вызываем функцию у объекта для нанесения урона
+				map.objectPlayerDefenceArray[object].setDemage(this.demage);
 				this.bulletFaced = true;
 				return;
 			}

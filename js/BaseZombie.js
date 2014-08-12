@@ -9,7 +9,7 @@ CZoneZombieAttack = Base.extend({
 });
 
 CBaseZombie = Base.extend({
-	constructor: function(ctx, pic, dTime, x, y, arrayObjects) {
+	constructor: function(ctx, pic, levelOfComplexity, dTime, x, y, arrayObjects) {
 		this.ctx = ctx;
 		this.pic = pic;
 		this.x = x;
@@ -31,7 +31,7 @@ CBaseZombie = Base.extend({
 		
 		this.indexGoalOfDestroying = getRandomInt(0, (arrayObjects.length - 1));
 		
-		this.health = HEALTH_ZOMBIE;
+		this.health = HEALTH_ZOMBIE * levelOfComplexity;
 		this.isDestroyed = false;
 		
 		this.isDamaged = false;
@@ -40,7 +40,7 @@ CBaseZombie = Base.extend({
 		
 		this.isAttacking = false;
 		this.rate = 1000;
-		this.demage = 5;
+		this.demage = 5 * levelOfComplexity;
 		this.lastHit = Date.now();
 		
 		this.dTime = dTime;

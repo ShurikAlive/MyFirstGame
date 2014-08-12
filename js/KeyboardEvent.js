@@ -213,7 +213,7 @@ $(document).ready(function () {
 							event  : 'keydown'
                         },
                         function () {
-							if (!player.isDestroyed && !player.clipIsEmpty())
+							if (!player.isDestroyed && !player.clipIsEmpty() && !endGame)
 							{
 								player.heShoots = true;
 								player.isStand = false;
@@ -240,6 +240,18 @@ $(document).ready(function () {
 							{
 								player.heShoots = false;
 								player.isStand = true;
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'p',
+                        {
+                        },
+                        function () {
+							if (endGame && delayEndOfGame == 0)
+							{
+								_menu();
 							}
                         }
                 )

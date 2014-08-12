@@ -2,7 +2,7 @@ CStandartWeapon = CBaseWeapon.extend({
 	constructor: function() 
 	{
 		this.name = "StandartWeapon";
-		this.numberOfCartridges = 100;
+		this.numberOfCartridges = 150;
 		this.lastFire = Date.now();
 		this.rate = 500;//время в мс между выстрелами(вылетами патронов)
 		this.bulletsOnTheMap = [];

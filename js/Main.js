@@ -9,9 +9,11 @@ PLAYER_STEP = 0.75 * RATIO_IMAGE_SIZE;//при скорости игрока 0.5
 ZOMBIE_STEP = 0.25 * RATIO_IMAGE_SIZE;
 ZOMBIE_DISTANCE_ATTACK = 1;
 SPEAD_STANDART_BULLET = 10;
-HEALTH_ZOMBIE = 100;
+HEALTH_ZOMBIE = 35;
+NUMBER_ZOMBIES_IN_THE_LEVEL = 50;
 
 var lastTime;
+var levelOfComplexity = 0;
 
 var _requestAnimFrame = (function(){
     return window.requestAnimationFrame       ||
@@ -116,32 +118,42 @@ function _playerHitSnag(map, player)
 
 function _criateZombiePlayerHunter(ctx, map, resources)
 {
+	if (NUMBER_ZOMBIES_IN_THE_LEVEL - map.getNumberOfZombies() <= 0)
+	{
+		return;
+	}
+
 	var numberEdge = getRandomInt(1, 4);
 	var x = 0;
 	var y = 0;
+	var zombPlay = null;
 	
-	if (numberEdge == 1)//верх
+	do
 	{
-		x = getRandomInt(0, map.width);
-		y = -70;
-	}
-	if (numberEdge == 2)//право
-	{
-		x = map.width + 5;
-		y = getRandomInt(0, map.height);
-	}
-	if (numberEdge == 3)//низ
-	{
-		x = getRandomInt(0, map.width);
-		y = map.height + 5;
-	}
-	if (numberEdge == 4)//лево
-	{
-		x = -70;
-		y = getRandomInt(0, map.height);
-	}
+		if (numberEdge == 1)//верх
+		{
+			x = getRandomInt(0, map.width);
+			y = -70;
+		}
+		if (numberEdge == 2)//право
+		{
+			x = map.width + 5;
+			y = getRandomInt(0, map.height);
+		}
+		if (numberEdge == 3)//низ
+		{
+			x = getRandomInt(0, map.width);
+			y = map.height + 5;
+		}
+		if (numberEdge == 4)//лево
+		{
+			x = -70;
+			y = getRandomInt(0, map.height);
+		}
 	
-	var zombPlay = new CZombieHunterPlayer(ctx, _getZombieSpirte(resources), dTime, x, y, map.playersArray);
+		zombPlay = new CZombieHunterPlayer(ctx, _getZombieSpirte(resources), levelOfComplexity, dTime, x, y, map.playersArray);
+	}
+	while (_playerHitSnag(map, zombPlay));
 	
 	map.pushZombieInArrayZombies(zombPlay);
 }
@@ -169,11 +181,16 @@ function _playerOrZombieStandingOnSpawn(map, spawn)
 
 function _criateZombieObjectHunter(ctx, map, resources)
 {
+	if (NUMBER_ZOMBIES_IN_THE_LEVEL - map.getNumberOfZombies() <= 0)
+	{
+		return;
+	}
+
 	var spawn = map.objectSpawnArray[getRandomInt(0, (map.objectSpawnArray.length - 1))];//Получаем случайный объект (спавнер)
 
 	if (!_playerOrZombieStandingOnSpawn(map, spawn))
 	{
-		var zombObj = new CZombieHunterObject(ctx, _getZombieSpirte(resources), dTime, spawn.x, spawn.y,  map.objectPlayerDefenceArray);
+		var zombObj = new CZombieHunterObject(ctx, _getZombieSpirte(resources), levelOfComplexity, dTime, spawn.x, spawn.y,  map.objectPlayerDefenceArray);
 		map.pushZombieInArrayZombies(zombObj);
 	}
 }
@@ -203,11 +220,13 @@ function _update(dt)
 	player.update(map);
 }
 
-function _drawInfo(example, ctx, map, player)
+function _drawInfo(example, ctx, pic, map, player)
 {
 	ctx.fillStyle = "black";
 	ctx.fillRect(map.width, 0, example.width - map.width, map.height);
 	ctx.strokeRect(map.width, 0, example.width - map.width, map.height);
+	//найти красивую менюшку
+	//ctx.drawImage(pic, 0, 0, 103, 143, map.width, 0, example.width - map.width, map.height);
 	
 	ctx.font = 'bold ' + 7 * RATIO_IMAGE_SIZE +'px courier';
     ctx.textAlign = 'left';
@@ -222,9 +241,12 @@ function _drawInfo(example, ctx, map, player)
 
 	ctx.fillText('Количество патронов:', map.width + 10, 95 * RATIO_IMAGE_SIZE);
 	ctx.fillText(player.arsenal[player.currentWeapon].numberOfCartridges, map.width + 10, 110 * RATIO_IMAGE_SIZE);
+	
+	ctx.fillText('Зомби осталось:', map.width + 10, 135 * RATIO_IMAGE_SIZE);
+	ctx.fillText(NUMBER_ZOMBIES_IN_THE_LEVEL - map.getNumberOfZombies(), map.width + 10, 150 * RATIO_IMAGE_SIZE);
 }
 
-function _draw(map, player)
+function _draw(map, player, resources)
 {
 	map.draw();
 	
@@ -237,7 +259,81 @@ function _draw(map, player)
 	
 	player.drawWeapons();
 	
-	_drawInfo(example, ctx, map, player);
+	_drawInfo(example, ctx, resources.get('img/main.png'), map, player);
+}
+
+function _allPlayersAreDestroyed(map)
+{
+	for (var player in map.playersArray)
+	{
+		if (!map.playersArray[player].isDestroyed)
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+function _allZombiesAreDestroyed(map)
+{
+	if ((NUMBER_ZOMBIES_IN_THE_LEVEL - map.getNumberOfZombies()) > 0)
+	{
+		return false;
+	}
+	
+	for (var zombie in map.zombiesArray)
+	{
+		if (!map.zombiesArray[zombie].isDestroyed)
+		{
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+function _destroyedProtectedObject(map)
+{
+	for (var objeckt in map.objectPlayerDefenceArray)
+	{
+		if (map.objectPlayerDefenceArray[objeckt].isDestroyed)
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+function _checkAtEndOfGame(map)
+{
+	if (_destroyedProtectedObject(map) || _allZombiesAreDestroyed(map) || _allPlayersAreDestroyed(map))
+	{
+		return true;
+	}
+	
+	return false;
+}
+
+function _drawEndGame(message, example, ctx)
+{
+	ctx.fillStyle = "black";
+	ctx.fillRect(0, 0, example.width, map.height);
+	ctx.strokeRect(0, 0, example.width, map.height);
+	//найти красивый фон
+	//ctx.drawImage(pic, 0, 0, 103, 143, map.width, 0, example.width - map.width, map.height);
+	
+	ctx.font = 'bold ' + 15 * RATIO_IMAGE_SIZE +'px courier';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#FFFFFF';
+
+    ctx.fillText(message, example.width / 2, example.height / 2);
+	
+	ctx.font = 'bold ' + 5 * RATIO_IMAGE_SIZE +'px courier';
+	
+	ctx.fillText('Press P to go to the menu...', example.width / 2, example.height / 2 + 40);
 }
 
 function _start()
@@ -246,9 +342,37 @@ function _start()
     var dt = (now - lastTime) / 600.0;
 	dTime = dt;
 
-    _update(dt);
-    _draw(map, player);
-
+	if (!onMenu)
+	{
+		endGame = _checkAtEndOfGame(map);
+	}
+		
+	if (!onMenu && endGame && delayEndOfGame > 0)
+	{
+		delayEndOfGame--;
+	}	
+	
+	if (onMenu)
+	{
+		_drawMenu();
+	}
+	else if (!endGame || (endGame && delayEndOfGame > 0))
+	{
+		_update(dt);
+		_draw(map, player, resources);
+	}
+	else if (delayEndOfGame == 0)
+	{
+		if (_allZombiesAreDestroyed(map))
+		{
+			_drawEndGame('You win!', example, ctx);
+		}
+		else if (_destroyedProtectedObject(map) || _allPlayersAreDestroyed(map))
+		{
+			_drawEndGame('You lose!', example, ctx);
+		}
+	}
+	
     lastTime = now;
     _requestAnimFrame(_start);
 	
@@ -256,7 +380,10 @@ function _start()
 
 function _init()
 {
+	onMenu = false;
+
 	lastTime = Date.now();
+	delayEndOfGame = 50;
 	map = new CMap(example, ctx, resources);
 	map.init();
 	player = _createPlayer(example, ctx, resources.get('img/Player.gif'), map);
@@ -265,8 +392,33 @@ function _init()
 	_start();
 }
 
-function main(map, player)
+function _drawMenu()
 {
+	ctx.fillStyle = "black";
+	ctx.fillRect(0, 0, example.width, example.height);
+	ctx.strokeRect(0, 0, example.width, example.height);
+	//найти красивый фон
+	//ctx.drawImage(pic, 0, 0, 103, 143, map.width, 0, example.width - map.width, map.height);
+	
+	easilyButton.draw();
+	averageButton.draw();
+	hardButton.draw();
+}
+
+function _menu()
+{
+	onMenu = true;
+
+	easilyButton = new CButton(ctx, null, 'Easily', 300, 150, 400, 50);
+	averageButton = new CButton(ctx, null, 'Average', 300, 250, 400, 50);
+	hardButton = new CButton(ctx, null, 'Hard', 300, 350, 400, 50);
+	
+	_start();
+}
+
+function main()
+{
+	onMenu = false;
 	example = document.getElementById("page");
 	ctx = example.getContext('2d');
 	
@@ -274,6 +426,31 @@ function main(map, player)
 	
 	example.width *= RATIO_IMAGE_SIZE;
 	example.height *= RATIO_IMAGE_SIZE;
+	
+	example.onclick = function(e)
+	{
+		var x = (e.pageX - example.offsetLeft);
+        var y = (e.pageY - example.offsetTop);
+        
+		if (onMenu)
+		{
+			if (easilyButton.hitButton(x, y))
+			{
+				levelOfComplexity = 1;
+				_init();
+			}
+			if (averageButton.hitButton(x, y))
+			{
+				levelOfComplexity = 2;
+				_init();
+			}
+			if (hardButton.hitButton(x, y))
+			{
+				levelOfComplexity = 3;
+				_init();
+			}
+		}
+	};
 	
 	resources.load([
     'img/tex_trava.bmp',
@@ -287,8 +464,9 @@ function main(map, player)
 	'img/ZOMBIE4.gif',
 	'img/Player.gif',
 	'img/lifebottle.gif',
-	'img/StandartBullet.png'
+	'img/StandartBullet.png',
+	'img/main.png'
 	]);
 	
-	resources.onReady(_init);
+	resources.onReady(_menu);
 }

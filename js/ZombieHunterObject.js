@@ -1,7 +1,7 @@
 CZombieHunterObject = CBaseZombie.extend({
 	takeStep: function(map)
 	{
-		if (this.isDestroyed)
+		if (this.isDestroyed || this.isAttacking || this.isDamaged)
 		{
 			return;
 		}
@@ -194,7 +194,7 @@ CZombieHunterObject = CBaseZombie.extend({
 		var targetObject = map.objectPlayerDefenceArray[this.indexGoalOfDestroying];
 		var zoneZombieAttack = new CZoneZombieAttack(this.x, this.y, this.height, this.width, this.distanceAttacks);
 				
-		if (!this.isDestroyed && this.isStand && _collision(targetObject, zoneZombieAttack) && (Date.now() - this.lastHit >= this.rate))
+		if (!this.isDestroyed && !this.isDamaged && this.isStand && _collision(targetObject, zoneZombieAttack) && (Date.now() - this.lastHit >= this.rate))
 		{		
 			this.isAttacking = true;
 			targetObject.setDemage(this.demage);

@@ -20,6 +20,11 @@ CMap = Base.extend({
 		this.picturesResurse = picturesResurse;
 	},
 
+	getNumberOfZombies: function()
+	{
+		return this.zombiesArray.length;
+	},
+	
 	pushZombieInArrayZombies: function(zombie)
 	{
 		this.zombiesArray.push(zombie);

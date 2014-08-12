@@ -12,11 +12,7 @@ CButton = Base.extend({
 	
 	draw: function()
 	{
-		this.ctx.fillStyle = "green";
-		this.ctx.fillRect(this.x, this.y, this.width, this.height);
-		this.ctx.strokeRect(this.x, this.y, this.width, this.height);
-		//найти красивый фон кнопки)))
-		//this.ctx.drawImage(this.pic, 0, 0, 103, 143, this.x, this.y, this.width, this.height);
+		this.ctx.drawImage(this.pic, 0, 0, 626, 262, this.x, this.y, this.width, this.height);
 		
 		this.ctx.font = 'bold ' + 15 * RATIO_IMAGE_SIZE +'px courier';
 		this.ctx.textAlign = 'center';

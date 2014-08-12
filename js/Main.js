@@ -12,6 +12,9 @@ SPEAD_STANDART_BULLET = 10;
 HEALTH_ZOMBIE = 35;
 NUMBER_ZOMBIES_IN_THE_LEVEL = 50;
 
+JOINING_SPRITE_OBJECT_PLAYER = 20;
+JOINING_SPRITE_OBJECT_ZOMBIE = 15;
+
 var lastTime;
 var levelOfComplexity = 0;
 
@@ -216,7 +219,6 @@ function _update(dt)
 		map.zombiesArray[zombie].attack(map);
 	}
 	
-	map.sortAnArrayOfZombies();
 	player.update(map);
 }
 
@@ -250,14 +252,32 @@ function _draw(map, player, resources)
 {
 	map.draw();
 	
+	player.drawWeapons();
+
+	//необходимо, для того, что бызомби и игорк нормально залазили друг на друга
+	var arrayToDrawZombiesAndPlayers = [];
+	
 	for (var zombie in map.zombiesArray)
 	{
-		map.zombiesArray[zombie].draw();
+		if (map.zombiesArray[zombie].isDestroyed)
+		{
+			map.zombiesArray[zombie].draw();
+		}
+		else
+		{
+			arrayToDrawZombiesAndPlayers.push(map.zombiesArray[zombie]);
+		}
 	}
 	
-	player.draw();
+	arrayToDrawZombiesAndPlayers.push(player);
 	
-	player.drawWeapons();
+	arrayToDrawZombiesAndPlayers.sort(function(a, b){return a.y - b.y;});
+	
+	for (var element in arrayToDrawZombiesAndPlayers)
+	{
+		arrayToDrawZombiesAndPlayers[element].draw();
+	}
+	//необходимо, для того, что бызомби и игорк нормально залазили друг на друга
 	
 	_drawInfo(example, ctx, resources.get('img/main.png'), map, player);
 }
@@ -394,11 +414,7 @@ function _init()
 
 function _drawMenu()
 {
-	ctx.fillStyle = "black";
-	ctx.fillRect(0, 0, example.width, example.height);
-	ctx.strokeRect(0, 0, example.width, example.height);
-	//найти красивый фон
-	//ctx.drawImage(pic, 0, 0, 103, 143, map.width, 0, example.width - map.width, map.height);
+	ctx.drawImage(resources.get('img/FoneMenu.jpg'), 0, 0, 1280, 1024, 0, 0, example.width, example.height);
 	
 	easilyButton.draw();
 	averageButton.draw();
@@ -409,9 +425,9 @@ function _menu()
 {
 	onMenu = true;
 
-	easilyButton = new CButton(ctx, null, 'Easily', 300, 150, 400, 50);
-	averageButton = new CButton(ctx, null, 'Average', 300, 250, 400, 50);
-	hardButton = new CButton(ctx, null, 'Hard', 300, 350, 400, 50);
+	easilyButton = new CButton(ctx, resources.get('img/Button.jpg'), 'Easily', 300, 150, 400, 50);
+	averageButton = new CButton(ctx, resources.get('img/Button.jpg'), 'Average', 300, 250, 400, 50);
+	hardButton = new CButton(ctx, resources.get('img/Button.jpg'), 'Hard', 300, 350, 400, 50);
 	
 	_start();
 }
@@ -465,7 +481,8 @@ function main()
 	'img/Player.gif',
 	'img/lifebottle.gif',
 	'img/StandartBullet.png',
-	'img/main.png'
+	'img/FoneMenu.jpg',
+	'img/Button.jpg'
 	]);
 	
 	resources.onReady(_menu);

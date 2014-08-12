@@ -3,9 +3,9 @@ CPlayer = Base.extend({
 		this.ctx = ctx;
 		this.pic = pic;
 		this.x = x;
-		this.y = y;
+		this.y = y + JOINING_SPRITE_OBJECT_PLAYER;
 		this.width = PLAYER_WIDTH;
-		this.height = PLAYER_HEIGHT;
+		this.height = PLAYER_HEIGHT - JOINING_SPRITE_OBJECT_PLAYER;
 		this.directionOfMovement = "up";// up, down, left, right, up-left, up-right, down-left, down-right
 		this.step = PLAYER_STEP;
 		this.isStand = true;
@@ -21,8 +21,8 @@ CPlayer = Base.extend({
 		this.lastDamage = Date.now();
 		this.delayPictures = 500;
 				
-		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 3, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height]);
-		this.spriteShoot = new CSprite(pic, [0, 0], [60, 60], 1, [1], 'horizontal', false, [this.width, this.height]);
+		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 3, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
+		this.spriteShoot = new CSprite(pic, [0, 0], [60, 60], 1, [1], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
 	},
 
 	setDemage: function(demage)
@@ -123,27 +123,27 @@ CPlayer = Base.extend({
 		
 		if (!this.heShoots && this.isDamaged && !this.isDestroyed)
 		{
-			this.ctx.drawImage(this.pic, 120, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 120, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER, this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER);
 		}
 		else if (!this.isDestroyed && !this.isStand && !this.heShoots)
 		{
 			this.spriteRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
-			this.spriteRun.updateCoordinateObject(this.x, this.y);
+			this.spriteRun.updateCoordinateObject(this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER);
 			this.spriteRun.render(this.ctx);
 		}
 		else if (!this.isDestroyed && this.isStand)
 		{
-			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER, this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER);
 		}
 		else if (!this.isDestroyed && this.heShoots)
 		{
 			this.spriteShoot.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
-			this.spriteShoot.updateCoordinateObject(this.x, this.y);
+			this.spriteShoot.updateCoordinateObject(this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER);
 			this.spriteShoot.render(this.ctx);
 		}
 		else if (this.isDestroyed)
 		{
-			this.ctx.drawImage(this.pic, 240, 480, 60, 60, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 240, 480, 60, 60, this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER, this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER);
 		}
 		
 		if (Date.now() - this.lastDamage >= this.delayPictures)

@@ -13,11 +13,11 @@ CBaseZombie = Base.extend({
 		this.ctx = ctx;
 		this.pic = pic;
 		this.x = x;
-		this.y = y;
+		this.y = y + JOINING_SPRITE_OBJECT_ZOMBIE;
 		this.lastX = x;
 		this.lastY = y;
 		this.width = ZOMBIE_WIDTH;
-		this.height = ZOMBIE_HEIGHT;
+		this.height = ZOMBIE_HEIGHT - JOINING_SPRITE_OBJECT_ZOMBIE;
 		this.directionOfMovement = 'up';// up, down, left, right, upleft, upright, downleft, downright
 		this.step = ZOMBIE_STEP;
 		this.isStand = false;
@@ -44,8 +44,8 @@ CBaseZombie = Base.extend({
 		this.lastHit = Date.now();
 		
 		this.dTime = dTime;
-		this.spriteRun = new CSprite(pic, [35, 0], [35, 50], 4, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height]);
-		this.spriteAttack = new CSprite(pic, [0, 450], [35, 50], 3, [0, 1, 2], 'horizontal', false, [this.width, this.height]);
+		this.spriteRun = new CSprite(pic, [35, 0], [35, 50], 4, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_ZOMBIE]);
+		this.spriteAttack = new CSprite(pic, [0, 450], [35, 50], 3, [0, 1, 2], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_ZOMBIE]);
 	},
 
 	setDemage: function(demage)
@@ -119,29 +119,29 @@ CBaseZombie = Base.extend({
 		
 		if (this.isDamaged && !this.isDestroyed)
 		{
-			this.ctx.drawImage(this.pic, 0, 400, 35, 50, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 0, 400, 35, 50, this.x, this.y - JOINING_SPRITE_OBJECT_ZOMBIE, this.width, this.height + JOINING_SPRITE_OBJECT_ZOMBIE);
 		}
 		else if (!this.isStand && !this.isDestroyed && !this.isAttacking)
 		{
 			this.spriteRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
-			this.spriteRun.updateCoordinateObject(this.x, this.y);
+			this.spriteRun.updateCoordinateObject(this.x, this.y - JOINING_SPRITE_OBJECT_ZOMBIE);
 			this.spriteRun.render(this.ctx);
 			this.spriteRun.update(dTime);
 		}
 		else if (!this.isDestroyed && !this.isAttacking && this.isStand)
 		{
-			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 35, 50, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 0, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 35, 50, this.x, this.y - JOINING_SPRITE_OBJECT_ZOMBIE, this.width, this.height + JOINING_SPRITE_OBJECT_ZOMBIE);
 		}
 		else if (!this.isDestroyed && this.isAttacking)
 		{
 			this.spriteAttack.pos[1] = 450 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
-			this.spriteAttack.updateCoordinateObject(this.x, this.y);
+			this.spriteAttack.updateCoordinateObject(this.x, this.y - JOINING_SPRITE_OBJECT_ZOMBIE);
 			this.spriteAttack.render(this.ctx);
 			this.spriteAttack.update(dTime);
 		}
 		else if (this.isDestroyed)
 		{
-			this.ctx.drawImage(this.pic, 175, 400, 35, 50, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 175, 400, 35, 50, this.x, this.y - JOINING_SPRITE_OBJECT_ZOMBIE, this.width, this.height + JOINING_SPRITE_OBJECT_ZOMBIE);
 		}
 		
 		if (Date.now() - this.lastDamage >= this.delayPictures)

@@ -252,8 +252,6 @@ function _draw(map, player, resources)
 {
 	map.draw();
 	
-	player.drawWeapons();
-
 	//необходимо, для того, что бызомби и игорк нормально залазили друг на друга
 	var arrayToDrawZombiesAndPlayers = [];
 	
@@ -268,6 +266,8 @@ function _draw(map, player, resources)
 			arrayToDrawZombiesAndPlayers.push(map.zombiesArray[zombie]);
 		}
 	}
+	
+	player.drawWeapons();
 	
 	arrayToDrawZombiesAndPlayers.push(player);
 	

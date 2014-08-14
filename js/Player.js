@@ -23,9 +23,9 @@ CPlayer = Base.extend({
 		this.lastDamage = Date.now();
 		this.delayPictures = 500;
 				
-		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 3, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
+		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 6, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
 		this.spriteShoot = new CSprite(pic, [0, 0], [60, 60], 1, [1], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
-		this.spriteShootAndRun = new CSprite(pic, [180, 0], [60, 60], 3, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
+		this.spriteShootAndRun = new CSprite(pic, [180, 0], [60, 60], 6, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
 	},
 
 	setDemage: function(demage)

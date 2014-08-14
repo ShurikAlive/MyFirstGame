@@ -5,7 +5,7 @@ PLAYER_WIDTH = 25 * RATIO_IMAGE_SIZE;
 PLAYER_HEIGHT = 30 * RATIO_IMAGE_SIZE;
 ZOMBIE_WIDTH = 15 * RATIO_IMAGE_SIZE;
 ZOMBIE_HEIGHT = 25 * RATIO_IMAGE_SIZE;
-PLAYER_STEP = 0.75 * RATIO_IMAGE_SIZE;//при скорости игрока 0.5 количество кадров анимации передвижения делать = 2
+PLAYER_STEP = 1 * RATIO_IMAGE_SIZE;//0.75 //при скорости игрока 0.5 количество кадров анимации передвижения делать = 2
 ZOMBIE_STEP = 0.125 * RATIO_IMAGE_SIZE;
 ZOMBIE_DISTANCE_ATTACK = 1;
 SPEAD_STANDART_BULLET = 10;

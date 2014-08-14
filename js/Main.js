@@ -203,12 +203,12 @@ function _update(dt)
 
 	_outOfBounds(map, player);
 	
-	if (getRandomInt(1, 1000) >= 990)
+	if (getRandomInt(1, 1000) <= 2)
 	{
 		_criateZombiePlayerHunter(ctx, map, resources);
 	}
 	
-	if (getRandomInt(1, 1000) >= 900)
+	if (getRandomInt(1, 1000) >= 999)
 	{
 		_criateZombieObjectHunter(ctx, map, resources);
 	}

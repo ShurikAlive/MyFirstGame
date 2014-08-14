@@ -402,6 +402,9 @@ function _init()
 {
 	onMenu = false;
 
+	map = null;
+	player = null;
+	
 	lastTime = Date.now();
 	delayEndOfGame = 50;
 	map = new CMap(example, ctx, resources);

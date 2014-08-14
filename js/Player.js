@@ -9,10 +9,12 @@ CPlayer = Base.extend({
 		this.directionOfMovement = "up";// up, down, left, right, up-left, up-right, down-left, down-right
 		this.step = PLAYER_STEP;
 		this.isStand = true;
-		
+				
 		this.arsenal = [new CStandartWeapon()];//Массив с оружием игрока
 		this.currentWeapon = 0;//индекс оружия из массива, которое в данный момент спользует игрок
 		this.heShoots = false;
+		
+		this.isShootsAndRun = false;
 		
 		this.health = 100;
 		this.isDestroyed = false;
@@ -23,6 +25,7 @@ CPlayer = Base.extend({
 				
 		this.spriteRun = new CSprite(pic, [180, 0], [60, 60], 3, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
 		this.spriteShoot = new CSprite(pic, [0, 0], [60, 60], 1, [1], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
+		this.spriteShootAndRun = new CSprite(pic, [180, 0], [60, 60], 3, [0, 1, 2, 3], 'horizontal', false, [this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER]);
 	},
 
 	setDemage: function(demage)
@@ -125,7 +128,14 @@ CPlayer = Base.extend({
 		{
 			this.ctx.drawImage(this.pic, 120, 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal, 60, 60, this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER, this.width, this.height + JOINING_SPRITE_OBJECT_PLAYER);
 		}
-		else if (!this.isDestroyed && !this.isStand && !this.heShoots)
+		else if (!this.isDestroyed && !this.isStand && !this.heShoots && this.isShootsAndRun)
+		{
+			//Бежит и стреляет)))
+			this.spriteShootAndRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
+			this.spriteShootAndRun.updateCoordinateObject(this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER);
+			this.spriteShootAndRun.render(this.ctx);
+		}
+		else if (!this.isDestroyed && !this.isStand && !this.heShoots && !this.isShootsAndRun)
 		{
 			this.spriteRun.pos[1] = 0 + heightOneImageOnSprite * spritePosInHorizontal + indent * spritePosInHorizontal;
 			this.spriteRun.updateCoordinateObject(this.x, this.y - JOINING_SPRITE_OBJECT_PLAYER);

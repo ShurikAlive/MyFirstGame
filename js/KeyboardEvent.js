@@ -210,10 +210,11 @@ $(document).ready(function () {
 				.keyboard(
                         'f',
                         {
+							strict : true,
 							event  : 'keydown'
                         },
                         function () {
-							if (!player.isDestroyed && !player.clipIsEmpty() && !endGame)
+							if (!player.isDestroyed && !player.clipIsEmpty() && !endGame && !player.isShootsAndRun)
 							{
 								player.heShoots = true;
 								player.isStand = false;
@@ -269,5 +270,366 @@ $(document).ready(function () {
 								player.isStand = true;
 							}
                         }
+                )
+				
+				.keyboard(
+                        's f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.y += player.step;
+								player.directionOfMovement = "down";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y -= player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.y += player.step;
+								player.directionOfMovement = "down";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y -= player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'w f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.y -= player.step;
+								player.directionOfMovement = "up";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y += player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.y -= player.step;
+								player.directionOfMovement = "up";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y += player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'a f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.x -= player.step;
+								player.directionOfMovement = "left";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x += player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.x -= player.step;
+								player.directionOfMovement = "left";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x += player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'd f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.x += player.step;
+								player.directionOfMovement = "right";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x -= player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.x += player.step;
+								player.directionOfMovement = "right";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x -= player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        's a f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.y += player.step;
+								player.x -= player.step;
+								player.directionOfMovement = "down-left";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y -= player.step;
+									player.x += player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.y += player.step;
+								player.x -= player.step;
+								player.directionOfMovement = "down-left";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y -= player.step;
+									player.x += player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'w a f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.y -= player.step;
+								player.x -= player.step;
+								player.directionOfMovement = "up-left";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y += player.step;
+									player.x += player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.y -= player.step;
+								player.x -= player.step;
+								player.directionOfMovement = "up-left";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.y += player.step;
+									player.x += player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        'w d f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.x += player.step;
+								player.y -= player.step;
+								player.directionOfMovement = "up-right";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x -= player.step;
+									player.y += player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.y -= player.step;
+								player.x += player.step;
+								player.directionOfMovement = "up-right";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x -= player.step;
+									player.y += player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        's d f',
+                        {
+							strict : true,
+							event  : 'keydown',
+                            preventDefault : true
+                        },
+                        function () {
+							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
+							{
+								player.x += player.step;
+								player.y += player.step;
+								player.directionOfMovement = "down-right";
+								player.isStand = false;
+								player.isShootsAndRun = true;
+								
+								player.pressTrigger(resources.get('img/StandartBullet.png'));
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x -= player.step;
+									player.y -= player.step;
+								}
+								
+								player.spriteShootAndRun.update(dTime);
+							}
+							else
+							{
+								player.x += player.step;
+								player.y += player.step;
+								player.directionOfMovement = "down-right";
+								player.isStand = false;
+								player.isShootsAndRun = false;
+								
+								if (_playerHitSnag(map, player))
+								{
+									player.x -= player.step;
+									player.y -= player.step;
+								}
+								
+								player.spriteRun.update(dTime);
+							}
+                        }
+                )
+				
+				.keyboard(
+                        's a f, s d f, w a f, w d f, s f, w f, a f, d f',
+                        {
+							strict : true,
+							event  : 'keyup',
+                            preventDefault : true
+                        },
+                        function () {
+							
+							if (!player.isDestroyed)
+							{
+								player.isShootsAndRun = false;
+								player.isStand = true;
+							}
+						}
                 )
 });

@@ -22,15 +22,15 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots)
 							{
-                                player.x -= player.step;
-								player.y -= player.step;
+                                player.x -= 0.75 * player.step;
+								player.y -= 0.75 * player.step;
 								player.directionOfMovement = "up-left";
 								player.isStand = false;
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x += player.step;
-									player.y += player.step;
+									player.x += 0.75 * player.step;
+									player.y += 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);
@@ -53,15 +53,15 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots)
 							{
-                                player.x += player.step;
-								player.y -= player.step;
+                                player.x += 0.75 * player.step;
+								player.y -= 0.75 * player.step;
 								player.directionOfMovement = "up-right";
 								player.isStand = false;
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x -= player.step;
-									player.y += player.step;
+									player.x -= 0.75 * player.step;
+									player.y += 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);
@@ -84,15 +84,15 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots)
 							{
-                                player.x += player.step;
-								player.y += player.step;
+                                player.x += 0.75 * player.step;
+								player.y += 0.75 * player.step;
 								player.directionOfMovement = "down-right";
 								player.isStand = false;
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x -= player.step;
-									player.y -= player.step;
+									player.x -= 0.75 * player.step;
+									player.y -= 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);
@@ -115,15 +115,15 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots)
 							{
-                                player.x -= player.step;
-								player.y += player.step;
+                                player.x -= 0.75 * player.step;
+								player.y += 0.75 * player.step;
 								player.directionOfMovement = "down-left";
 								player.isStand = false;
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x += player.step;
-									player.y -= player.step;
+									player.x += 0.75 * player.step;
+									player.y -= 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);
@@ -511,8 +511,8 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
-								player.y += player.step;
-								player.x -= player.step;
+								player.y += 0.75 * player.step;
+								player.x -= 0.75 * player.step;
 								player.directionOfMovement = "down-left";
 								player.isStand = false;
 								player.isShootsAndRun = true;
@@ -521,8 +521,8 @@ $(document).ready(function () {
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.y -= player.step;
-									player.x += player.step;
+									player.y -= 0.75 * player.step;
+									player.x += 0.75 * player.step;
 								}
 								
 								player.spriteShootAndRun.update(dTime);
@@ -537,8 +537,8 @@ $(document).ready(function () {
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.y -= player.step;
-									player.x += player.step;
+									player.y -= 0.75 * player.step;
+									player.x += 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);
@@ -561,8 +561,8 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
-								player.y -= player.step;
-								player.x -= player.step;
+								player.y -= 0.75 * player.step;
+								player.x -= 0.75 * player.step;
 								player.directionOfMovement = "up-left";
 								player.isStand = false;
 								player.isShootsAndRun = true;
@@ -571,24 +571,24 @@ $(document).ready(function () {
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.y += player.step;
-									player.x += player.step;
+									player.y += 0.75 * player.step;
+									player.x += 0.75 * player.step;
 								}
 								
 								player.spriteShootAndRun.update(dTime);
 							}
 							else
 							{
-								player.y -= player.step;
-								player.x -= player.step;
+								player.y -= 0.75 * player.step;
+								player.x -= 0.75 * player.step;
 								player.directionOfMovement = "up-left";
 								player.isStand = false;
 								player.isShootsAndRun = false;
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.y += player.step;
-									player.x += player.step;
+									player.y += 0.75 * player.step;
+									player.x += 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);
@@ -611,8 +611,8 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
-								player.x += player.step;
-								player.y -= player.step;
+								player.x += 0.75 * player.step;
+								player.y -= 0.75 * player.step;
 								player.directionOfMovement = "up-right";
 								player.isStand = false;
 								player.isShootsAndRun = true;
@@ -621,24 +621,24 @@ $(document).ready(function () {
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x -= player.step;
-									player.y += player.step;
+									player.x -= 0.75 * player.step;
+									player.y += 0.75 * player.step;
 								}
 								
 								player.spriteShootAndRun.update(dTime);
 							}
 							else
 							{
-								player.y -= player.step;
-								player.x += player.step;
+								player.y -= 0.75 * player.step;
+								player.x += 0.75 * player.step;
 								player.directionOfMovement = "up-right";
 								player.isStand = false;
 								player.isShootsAndRun = false;
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x -= player.step;
-									player.y += player.step;
+									player.x -= 0.75 * player.step;
+									player.y += 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);
@@ -661,8 +661,8 @@ $(document).ready(function () {
 						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
-								player.x += player.step;
-								player.y += player.step;
+								player.x += 0.75 * player.step;
+								player.y += 0.75 * player.step;
 								player.directionOfMovement = "down-right";
 								player.isStand = false;
 								player.isShootsAndRun = true;
@@ -671,24 +671,24 @@ $(document).ready(function () {
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x -= player.step;
-									player.y -= player.step;
+									player.x -= 0.75 * player.step;
+									player.y -= 0.75 * player.step;
 								}
 								
 								player.spriteShootAndRun.update(dTime);
 							}
 							else
 							{
-								player.x += player.step;
-								player.y += player.step;
+								player.x += 0.75 * player.step;
+								player.y += 0.75 * player.step;
 								player.directionOfMovement = "down-right";
 								player.isStand = false;
 								player.isShootsAndRun = false;
 								
 								if (_playerHitSnag(map, player))
 								{
-									player.x -= player.step;
-									player.y -= player.step;
+									player.x -= 0.75 * player.step;
+									player.y -= 0.75 * player.step;
 								}
 								
 								player.spriteRun.update(dTime);

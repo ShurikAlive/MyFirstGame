@@ -15,6 +15,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x -= player.step;
@@ -41,6 +46,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x += player.step;
@@ -67,6 +77,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x += player.step;
@@ -93,6 +108,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots)
 							{
                                 player.x -= player.step;
@@ -119,6 +139,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.y += player.step;
@@ -143,6 +168,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+							
 							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.y -= player.step;
@@ -167,6 +197,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.x += player.step;
@@ -191,6 +226,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.isShootsAndRun)
+							{
+								player.isShootsAndRun = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots)
 							{
 								player.x -= player.step;

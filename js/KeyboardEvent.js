@@ -280,6 +280,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.y += player.step;
@@ -321,6 +326,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.y -= player.step;
@@ -362,6 +372,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.x -= player.step;
@@ -403,6 +418,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.x += player.step;
@@ -444,6 +464,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.y += player.step;
@@ -489,6 +514,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.y -= player.step;
@@ -534,6 +564,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.x += player.step;
@@ -579,6 +614,11 @@ $(document).ready(function () {
                             preventDefault : true
                         },
                         function () {
+							if (player.heShoots)
+							{
+								player.heShoots = false;
+							}
+						
 							if (!player.isDestroyed && !player.heShoots && !player.clipIsEmpty() && !endGame)
 							{
 								player.x += player.step;

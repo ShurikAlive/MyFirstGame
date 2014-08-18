@@ -5,8 +5,8 @@ CDefencObject = Base.extend({
 		this.destroyedPicture = destroyedPicture;
 		this.x = x;
 		this.y = y;
-		this.width = BLOCK_WIDTH;
-		this.height = BLOCK_HEIGHT;
+		this.width = DEFENCE_OBJECT_WIDTH;
+		this.height = DEFENCE_OBJECT_HEIGHT;
 		
 		this.health = 100;
 		this.isDestroyed = false;
@@ -27,11 +27,11 @@ CDefencObject = Base.extend({
 	{
 		if (!this.isDestroyed)
 		{
-			this.ctx.drawImage(this.pic, 0, 0, 32, 32, this.x, this.y, this.width, this.height);
+			this.ctx.drawImage(this.pic, 0, 0, 38, 48, this.x, this.y, this.width, this.height);
 		}
 		else
 		{
-			this.ctx.drawImage(this.destroyedPicture, 0, 0, 13, 31, this.x + 25, this.y + 15, 13, 31);
+			this.ctx.drawImage(this.destroyedPicture, 0, 0, 56, 16, this.x, this.y + 32, 56, 16);
 		}
 	}
 });

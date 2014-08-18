@@ -1,6 +1,8 @@
 RATIO_IMAGE_SIZE = 2;
 BLOCK_WIDTH = 32 * RATIO_IMAGE_SIZE;
 BLOCK_HEIGHT = 32 * RATIO_IMAGE_SIZE;
+DEFENCE_OBJECT_WIDTH = 38;
+DEFENCE_OBJECT_HEIGHT = 48;
 PLAYER_WIDTH = 25 * RATIO_IMAGE_SIZE;
 PLAYER_HEIGHT = 30 * RATIO_IMAGE_SIZE;
 ZOMBIE_WIDTH = 15 * RATIO_IMAGE_SIZE;
@@ -472,7 +474,7 @@ function main()
 	};
 	
 	resources.load([
-    'img/tex_trava.bmp',
+    'img/tex_trava.jpg',
     'img/Spawn.bmp',
 	'img/Box.bmp',
 	'img/Stone.bmp',
@@ -482,7 +484,7 @@ function main()
 	'img/ZOMBIE3.gif',
 	'img/ZOMBIE4.gif',
 	'img/Player.gif',
-	'img/lifebottle.gif',
+	'img/DethDefObj.gif',
 	'img/StandartBullet.png',
 	'img/FoneMenu.jpg',
 	'img/Button.jpg'

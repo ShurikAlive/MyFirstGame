@@ -93,7 +93,7 @@ CMap = Base.extend({
 			j = getRandomInt(7, 9);
 		}
 	
-		var defencObject = new CDefencObject(this.ctx, this.picturesResurse.get('img/DefObj.bmp'), this.picturesResurse.get('img/lifebottle.gif'),i * BLOCK_WIDTH, j * BLOCK_HEIGHT);
+		var defencObject = new CDefencObject(this.ctx, this.picturesResurse.get('img/DefObj.bmp'), this.picturesResurse.get('img/DethDefObj.gif'),i * BLOCK_WIDTH, j * BLOCK_HEIGHT);
 		arrayMap[j][i] = defencObject;
 		this.objectPlayerDefenceArray.push(defencObject);
 		
@@ -108,7 +108,7 @@ CMap = Base.extend({
 		{
 			for (var i = 0; i < this.obstaclesMap[j].length; ++i)
 			{
-				this.ctx.drawImage(this.picturesResurse.get('img/tex_trava.bmp'), 0, 0, 64, 64, i * BLOCK_WIDTH, j * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);	
+				this.ctx.drawImage(this.picturesResurse.get('img/tex_trava.jpg'), 0, 0, 64, 64, i * BLOCK_WIDTH, j * BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT);	
 					
 				if (this.obstaclesMap[j][i] != null)
 				{
